@@ -1,21 +1,18 @@
 import pandas as pd
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, jsonify
 
 app = Flask(__name__)
-
-
-money = pd.read_csv("top_paid_clean.csv")
 
 def graphData(money):
     
     #------------------------------------------- First Visualization ------------------------------------------------
     # Retrieve the earnings by sport per year
-    yearly_Sport = pd.DataFrame(money.groupby(["Year", "Sport"])["Earnings (Millions of US$)"].sum()).reset_index().set_index("Year")
-    yearlySport = yearly_Sport.to_json(orient = "table")
+    yearly_Sport = pd.DataFrame(money.groupby(["Year", "Sport"])["Earnings (Millions of US$)"].sum()).unstack().droplevel(level=0, axis = 1)
+    yearlySport = yearly_Sport.to_dict('index')
     
     # Retrieve the earnings by nationality per year
-    yearly_Nationalities = pd.DataFrame(money.groupby(["Year", "Nationality"])["Earnings (Millions of US$)"].sum()).reset_index().set_index("Year")
-    yearlyNation = yearly_Nationalities.to_json(orient = "table")
+    yearly_Nationalities = pd.DataFrame(money.groupby(["Year", "Nationality"])["Earnings (Millions of US$)"].sum()).unstack().droplevel(level=0, axis = 1)
+    yearlyNationalities = yearly_Nationalities.to_dict('index')
 
     # Retrieve the total earnings per year
     yearly_Earnings = pd.DataFrame(money.groupby(["Year"])["Earnings (Millions of US$)"].sum())
@@ -60,16 +57,19 @@ def graphData(money):
     nationality_Athletes = pd.DataFrame(money.groupby(["Nationality"])["Name"].nunique())
     nationalityAthletes = nationality_Athletes.to_json(orient = "table")
     
-    return [yearlySport, yearlyNation, yearlyEarnings, nationalityGlobalEarnings, sportsGlobalEarnings, athleteEarnings, sportSpecificEarnings, sportSpecificRanking, sportsAthletes, nationalitySpecificEarnings, nationalitySpecificRanking, nationalityAthletes]
+    # return [yearlySport, yearlyNation, yearlyEarnings, nationalityGlobalEarnings, sportsGlobalEarnings, athleteEarnings, sportSpecificEarnings, sportSpecificRanking, sportsAthletes, nationalitySpecificEarnings, nationalitySpecificRanking, nationalityAthletes]
+    dictData = {
+        "yearSport": yearlySport,
+        "yearNation": yearlyNationalities
+    }
+    return jsonify(dictData)
      
-@app.route("/getdata")
+@app.route("/")
 def index():
+    money = pd.read_csv("top_paid_clean.csv")
     data = graphData(money)
+    # return render_template("index.html", data = data)
     return data
-
-if __name__ == "__name__":
+if __name__ == "__main__":
     app.run(debug = True)
-
-# data = graphData(money)
-# # print(data)
 
