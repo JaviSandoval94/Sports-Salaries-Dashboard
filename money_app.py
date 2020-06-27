@@ -1,6 +1,9 @@
 import pandas as pd
 from flask import Flask, render_template, redirect
 
+app = Flask(__name__)
+
+
 money = pd.read_csv("top_paid_clean.csv")
 
 def graphData(money):
@@ -59,6 +62,14 @@ def graphData(money):
     
     return [yearlySport, yearlyNation, yearlyEarnings, nationalityGlobalEarnings, sportsGlobalEarnings, athleteEarnings, sportSpecificEarnings, sportSpecificRanking, sportsAthletes, nationalitySpecificEarnings, nationalitySpecificRanking, nationalityAthletes]
      
-data = graphData(money)
-print(data)
+@app.route("/getdata")
+def index():
+    data = graphData(money)
+    return data
+
+if __name__ == "__name__":
+    app.run(debug = True)
+
+# data = graphData(money)
+# # print(data)
 
