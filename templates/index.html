@@ -1,15 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Mars</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Top-paid</title>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    </head>
 
-<body>
-    <p>{{data}}</p>
-</body>
+    <body>
+<!-------------------------------------------------------------------------------- HOME ----------------------------------------------------------------------------------------->
+        <div id="home">
+            <div class="row text-center">
+
+            </div>
+        </div> 
+
+<!------------------------------------------------------------------------------- RADIAL ----------------------------------------------------------------------------------------->        
+        <div id="radial">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card general">
+                            <div class="card-body">
+                                <h5>GENERAL STATISTICS</h5>
+                                <ul class="highest-paid">
+                                    <li>Highest Paid Athlete: </li>
+                                    <li>Highest Paid Nationality: </li>
+                                    <li>Highest Paid Sport: </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="nationality-pie">
+
+                        </div>
+                        <div class="sport-pie">
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-8">
+                        <div class="radial-chart">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-------------------------------------------------------------------------------- LOLLIPOP ----------------------------------------------------------------------------------------->        
+        <div id="lollipop">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="dot-selector" id="sport-selector" value="sport" checked>
+                            <label class="form-check-label" for="sports-selector">
+                              Sport
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="dot-selector" id="nation-selector" value="nationality">
+                            <label class="form-check-label" for="nation-selector">
+                              Nationality
+                            </label>
+                          </div>
+                        <select class="selector">
+                            <!-- <option class="selector">2</option>  ESTO SE LLENA CON JS -->
+
+                        </select>
+                        <div class="card stats">
+                            <ul class="stats-list">
+                                <li>Total Athletes: </li>
+                                <li>Overall Rank: </li>
+                                <li>Best Rank: </li>
+                                <li>Best Year: </li>
+                                <li>Total Earnings: </li>
+                            </ul>
+                        </div>
+                        <div class="rankings-pie">
+
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="year-lollipop">
+
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+
+        <!--Jquery-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="./static/js/money.js"></script>  
+    </body>
+
+</html>
