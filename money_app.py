@@ -60,6 +60,10 @@ def graphData(money):
     nationality_Athletes = pd.DataFrame(money.groupby(["Nationality"])["Name"].nunique()).fillna(0)
     nationalityAthletes = nationality_Athletes.to_dict('index')
     
+    # Categories
+    allSports = sports_globalEarnings.index.values.tolist() 
+    allNations = nationality_globalEarnings.index.values.tolist()
+    
     # return [yearlySport, yearlyNation, yearlyEarnings, nationalityGlobalEarnings, sportsGlobalEarnings, athleteEarnings, sportSpecificEarnings, sportSpecificRanking, sportsAthletes, nationalitySpecificEarnings, nationalitySpecificRanking, nationalityAthletes]
     dictData = {
         "yearSport": yearlySport,
@@ -73,7 +77,9 @@ def graphData(money):
         "sportAthletes": sportsAthletes,
         "nationEarnings": nationalitySpecificEarnings,
         "nationRanks": nationalitySpecificRanking,
-        "nationAthletes":nationalityAthletes
+        "nationAthletes":nationalityAthletes,
+        "allSports": allSports,
+        "allNations": allNations
     }
     
     return jsonify(dictData)

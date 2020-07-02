@@ -56,40 +56,29 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="dot-selector" id="sport-selector" value="sport" checked>
-                            <label class="form-check-label" for="sports-selector">
-                              Sport
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" name="dot-selector" id="nation-selector" value="nationality">
-                            <label class="form-check-label" for="nation-selector">
-                              Nationality
-                            </label>
-                          </div>
-                        <select class="selector">
+                        <select class="selector" id ="sportNation">
+                            <option selected>Select a category</option>
+                            <option value="sport">Sport</option>
+                            <option value="nation">Nationality</option>
+                        </select><br>
+                        <select class="selector" id="specific">
                             <!-- <option class="selector">2</option>  ESTO SE LLENA CON JS -->
 
                         </select>
                         <div class="card stats">
-                            <ul class="stats-list">
-                                <li>Total Athletes: </li>
-                                <li>Overall Rank: </li>
-                                <li>Best Rank: </li>
-                                <li>Best Year: </li>
-                                <li>Total Earnings: </li>
-                            </ul>
-                        </div>
-                        <div class="rankings-pie">
-
+                            <ul class="stats-list"></ul>
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <div class="year-lollipop">
+                        <div id="rankPie">
 
                         </div>
                     </div>
+                <div class="row">
+                    <div id="lolliChart">
+
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -97,6 +86,7 @@
         <!--Jquery-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
         <script src="./static/js/money.js"></script>  
     </body>
