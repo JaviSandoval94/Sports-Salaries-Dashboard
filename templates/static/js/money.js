@@ -4,20 +4,179 @@ var select2 = d3.select("#specific");
 select1.on("change", runMain);
 select2.on("change", runSpecific);
 
-function radialChart(){
-    // Recibe las ganancias (los circulos externos), por nacionalidad/deporte (barras, cada deporte o nacionalidad es un color), y eso por año
-    // (son los tags dentro del circulo, etiquetan cada columna de colores)
+function radialChart(url){
+
+  // set the dimensions and margins of the graph
+  var margin = {top: 100, right: 0, bottom: 0, left: 0},
+      width = 460 - margin.left - margin.right,
+      height = 460 - margin.top - margin.bottom,
+      innerRadius = 90,
+      outerRadius = Math.min(width, height) / 2;   // the outerRadius goes from the middle of the SVG area to the border
+  
+  // append the svg object
+  var svg = d3.select("#my_dataviz")
+    .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")");
+
+  d3.json(url).then( (sample) => {
+
+    var data = [];
+    var nationGlobal = sample.nationGlobalE;
+    
+    Object.entries(nationGlobal).forEach(([key, value]) => {
+        var myObject = new Object();
+        myObject.Country = key;
+        myObject.Value = parseInt(value["Earnings (Millions of US$)"]);
+        // var myString = `{Country: ${key}, Value: ${parseInt(value["Earnings (Millions of US$)"])}}`;
+        data.push(myObject);
+            
+    });        
+
+ 
+  // Scales
+  var x = d3.scaleBand()
+      .range([0, 2 * Math.PI])    // X axis goes from 0 to 2pi = all around the circle. If I stop at 1Pi, it will be around a half circle
+      .align(0)                  // This does nothing
+      .domain(data.map(function(d) { return d.Country; })); // The domain of the X axis is the list of states.
+  var y = d3.scaleRadial()
+      .range([innerRadius, outerRadius])   // Domain will be define later.
+      .domain([0, 14000]); // Domain of Y is from 0 to the max seen in the data
+
+  // Add the bars
+  svg.append("g")
+    .selectAll("path")
+    .data(data)
+    .enter()
+    .append("path")
+      .attr("fill", "#69b3a2")
+      .attr("d", d3.arc()     // imagine your doing a part of a donut plot
+          .innerRadius(innerRadius)
+          .outerRadius(function(d) { return y(d['Value']); })
+          .startAngle(function(d) { return x(d.Country); })
+          .endAngle(function(d) { return x(d.Country) + x.bandwidth(); })
+          .padAngle(0.01)
+          .padRadius(innerRadius))
+
+  // Add the labels
+  svg.append("g")
+      .selectAll("g")
+      .data(data)
+      .enter()
+      .append("g")
+        .attr("text-anchor", function(d) { return (x(d.Country) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start"; })
+        .attr("transform", function(d) { return "rotate(" + ((x(d.Country) + x.bandwidth() / 2) * 180 / Math.PI - 90) + ")"+"translate(" + (y(d['Value'])+10) + ",0)"; })
+      .append("text")
+        .text(function(d){return(d.Country)})
+        .attr("transform", function(d) { return (x(d.Country) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
+        .style("font-size", "11px")
+        .attr("alignment-baseline", "middle")
+
+  });
 }
 
 
-function nationalitiesPie (){
-    // % de ganancias por país, de todos los años del data set
+function nationalitiesPie (url){
+  // % of ernings for each country
+  d3.json(url).then( (sample) => {
 
+    // Call the corresponding part of JSON
+    var nationGlobal = sample.nationGlobalE;
+    var countries = [];
+    var earnings = [];
+
+    Object.entries(nationGlobal).forEach(([key, value]) => {
+      countries.push(key);
+      earnings.push(parseInt(value["Earnings (Millions of US$)"]));
+    });
+
+    var maxCountries = earnings.indexOf(Math.max.apply(Math, earnings));
+    var highestCountry = countries[maxCountries];
+    var highestCountryText = `Highest paid country: ${highestCountry}`;
+    var liCountry = d3.select(".highest-paid").append("li").text(highestCountryText);
+    
+    var trace1 = {
+      values: earnings,
+      labels: countries,
+      type: 'pie',
+      textinfo: "label+percent",
+      textposition: "inside",
+      automargin: true
+    };
+    
+    var layout = {
+      title: "Earnings (MUSD) by Country",
+      autosize: true,
+      showlegend: false
+    };
+  
+    var data = [trace1];
+    Plotly.newPlot('nationality-pie', data, layout);
+  });
+  
 }
 
-function sportPie(){
-    // % de ganancias por deporte, todos los años
+function sportPie(url){
+  // % of earnings for each sport
+  d3.json(url).then( (sample) => {
 
+    // Call the corresponding part of JSON
+    var nationGlobal = sample.sportGlobalE;
+    var sports = [];
+    var earnings = [];
+
+    Object.entries(nationGlobal).forEach(([key, value]) => {
+      sports.push(key);
+      earnings.push(value["Earnings (Millions of US$)"]);
+    });
+
+    var maxSports = earnings.indexOf(Math.max.apply(Math, earnings));
+    var highestSport = sports[maxSports];
+    var highestSportsText = `Highest paid sport: ${highestSport}`;
+    var liSports = d3.select(".highest-paid").append("li").text(highestSportsText);
+    
+    var trace1 = {
+      values: earnings,
+      labels: sports,
+      type: 'pie',
+      textinfo: "label+percent",
+      textposition: "inside",
+      automargin: true
+    };
+    
+    var layout = {
+      title: "Earnings (MUSD) by Sport",
+      autosize: true,
+      showlegend: false  
+    };
+  
+    var data = [trace1];
+    Plotly.newPlot('sport-pie', data, layout);
+  });
+}
+
+function atletheHighest(){
+  // % of earnings for each sport
+  d3.json(url).then( (sample) => {
+
+    // Call the corresponding part of JSON
+    var athleteGlobal = sample.AthletesEarnings;
+    var athletes = [];
+    var earnings = [];
+
+    Object.entries(athleteGlobal).forEach(([key, value]) => {
+      athletes.push(key);
+      earnings.push(value["Earnings (Millions of US$)"]);
+    });
+
+    var maxAthlete = earnings.indexOf(Math.max.apply(Math, earnings));
+    var highestAthlete = athletes[maxAthlete];
+    var highestAthleteText = `Highest paid atlete: ${highestAthlete}`;
+    var liAthlete = d3.select(".highest-paid").append("li").text(highestAthleteText);
+    
+  });
 }
 
 function lollipop(data){
@@ -33,6 +192,7 @@ function lollipop(data){
     total.push({"year":key, "earnings":value});
   })
   // console.log(total[0].year);
+  max = d3.max(values);
 
   var svgArea = d3.select("#lolliChart").select("svg");
 
@@ -42,10 +202,10 @@ function lollipop(data){
   }
 
   var svgWidth = window.innerWidth;
-  var svgHeight = window.innerHeight*0.5;
+  var svgHeight = window.innerHeight;
 
   // set the dimensions and margins of the graph
-  var margin = {top: 10, right: 30, bottom: 90, left: 50},
+  var margin = {top: 10, right: 30, bottom: 90, left: 70},
     width = svgWidth - margin.left - margin.right,
     height = svgHeight - margin.top - margin.bottom;
 
@@ -56,7 +216,7 @@ function lollipop(data){
     .attr("height", svgHeight);
 
   var lolli = svg.append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
       // X axis
   var x = d3.scaleBand()
@@ -65,7 +225,7 @@ function lollipop(data){
     .padding(1);
 
     lolli.append("g")
-    .attr("transform", "translate(0," + height + ")")
+    .attr("transform", `translate(0, ${height})`)
     .call(d3.axisBottom(x))
     .selectAll("text")
     .attr("transform", "translate(-10,0)rotate(-45)")
@@ -73,10 +233,10 @@ function lollipop(data){
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([0, d3.max(values)])
-    .range([ height, 0]);
+    .domain([0, d3.max(values)*1.2])
+    .range([height, 0]);
 
-    lolli.append("g")
+  lolli.append("g")
     .call(d3.axisLeft(y));
 
   // Lines
@@ -90,6 +250,19 @@ function lollipop(data){
     .attr("y2", y(0))
     .attr("stroke", "grey")
 
+  var xLabel = lolli.append("g")
+    .attr("transform", `translate(${width / 2}, ${height + 20})`)
+    .append("text")
+    .attr("y", 25)
+    .text("Years")
+
+  var yLabel = lolli.append("g")
+    .attr("transform", "rotate(-90)")
+    .append("text")
+    .attr("y", 0 - margin.left + 35)
+    .attr("x", 0 - (height/2))
+    .text("Earnings [Millions of Dollars]");
+
   // Circles
   var circles = lolli.selectAll("mycircle")
     .data(total)
@@ -99,7 +272,7 @@ function lollipop(data){
     .append("circle")
     .attr("cx", d => x(d.year))
     .attr("cy", d => y(d.earnings))
-    .attr("r", "5")
+    .attr("r", d=> d.earnings/max * 20)
     .style("fill", "#69b3a2")
     .attr("stroke", "black")
 
@@ -107,7 +280,8 @@ function lollipop(data){
     .attr("class", "tip")
     .offset([80, -60])
     .html(function(data) {
-      return(`<strong>${data}<br>Earnings: ${data}`)
+      // console.log(data);
+      return(`<strong>Year</strong>: ${data.year}<hr><strong>Earnings</strong>: ${data.earnings} M. US$`)
     });
 
   circleGroup.call(toolTip);
@@ -151,18 +325,6 @@ function rankingPie(rank){
     Plotly.newPlot('rankPie', data, layout);    
 }
 
-function fillSpecific(options) {
-  var specific = d3.select("#specific");
-
-  specific.html("");
-
-  if(all){
-    options.forEach(value => {
-      var option = specific.append("option");
-      option.property("value", value).text(value);
-    })
-  }
-}
 
 function fillCard(earnings, ranks, athletes, all) {
   var s2 = select2.property("value");
@@ -206,6 +368,19 @@ function fillCard(earnings, ranks, athletes, all) {
   card.append("li").text(`Best Rank: ${bRank}`)
   card.append("li").text(`Best Year: ${bYear}`)
   card.append("li").text(`Total Earnings: ${sum.toFixed(2)} Millions of Dollars`)
+}
+
+function fillSpecific(options) {
+  var specific = d3.select("#specific");
+
+  specific.html("");
+
+  if(all){
+    options.forEach(value => {
+      var option = specific.append("option");
+      option.property("value", value).text(value);
+    })
+  }
 }
 
 url = "http://localhost:5000/"
@@ -269,4 +444,9 @@ function runMain() {
     fillSpecific(all);
   })
 }
+
+radialChart(url);
+nationalitiesPie(url);
+sportPie(url);
+atletheHighest(url);
 d3.select(window).on("resize", runSpecific);
