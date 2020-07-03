@@ -3,7 +3,9 @@ from flask import Flask, render_template, redirect, jsonify
 from flask_cors import CORS, cross_origin
 from sqlalchemy import create_engine
 
-engine = create_engine('postgresql+psycopg2://postgres:FanFuno96PSQL@localhost:5432/sportSalay_db')
+from password import password
+
+engine = create_engine(f'postgresql+psycopg2://postgres:{password}@localhost:5432/sportSalay_db')
 
 app = Flask(__name__)
 CORS(app, support_credentials=True)

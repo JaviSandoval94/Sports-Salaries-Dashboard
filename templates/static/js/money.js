@@ -260,7 +260,7 @@ function lollipop(data){
     .attr("transform", "rotate(-90)")
     .append("text")
     .attr("y", 0 - margin.left + 50)
-    .attr("x", 0 - (height/2))
+    .attr("x", 0 - (2*height/3))
     .text("Earnings [Millions of Dollars]");
 
   // Circles
