@@ -205,7 +205,7 @@ function lollipop(data){
   var svgHeight = window.innerHeight;
 
   // set the dimensions and margins of the graph
-  var margin = {top: 10, right: 30, bottom: 90, left: 70},
+  var margin = {top: 10, right: 30, bottom: 90, left: 100},
     width = svgWidth - margin.left - margin.right,
     height = svgHeight - margin.top - margin.bottom;
 
@@ -259,7 +259,7 @@ function lollipop(data){
   var yLabel = lolli.append("g")
     .attr("transform", "rotate(-90)")
     .append("text")
-    .attr("y", 0 - margin.left + 35)
+    .attr("y", 0 - margin.left + 50)
     .attr("x", 0 - (height/2))
     .text("Earnings [Millions of Dollars]");
 
@@ -294,7 +294,6 @@ function lollipop(data){
     })
 }
 
-
 function rankingPie(rank){
     var rPie = d3.select("#rankPie");
     rPie.html("");
@@ -319,7 +318,7 @@ function rankingPie(rank){
     var layout = {
       title: `${s2} Ranking Distribution`,
       paper_bgcolor: "white",
-
+      showlegend: false
     }
 
     Plotly.newPlot('rankPie', data, layout);    
