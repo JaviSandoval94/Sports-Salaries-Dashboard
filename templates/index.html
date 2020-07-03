@@ -16,7 +16,8 @@
 <!-------------------------------------------------------------------------------- HOME ----------------------------------------------------------------------------------------->
         <div id="home">
             <div class="row text-center">
-
+                <!-- <img src="imagen guardada en carpeta images" alt="Tiger_Woods" width="500" height="700"> -->
+                <div class="title">Forbes top paid athletes 1990-2019</div>
             </div>
         </div> 
 
@@ -43,7 +44,7 @@
 
                     </div>
                     <div class="col-md-8">
-                        <div id="my_dataviz">
+                        <div id="sunburstChart">
 
                         </div>
                     </div>
@@ -56,25 +57,26 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-5">
-                        <select class="selector" id ="sportNation">
+                        <select class="selector shadow p-3 mb-5 bg-white rounded" id ="sportNation">
                             <option selected>Select a category</option>
                             <option value="sport">Sport</option>
                             <option value="nation">Nationality</option>
                         </select><br>
-                        <select class="selector" id="specific">
+                        <select class="selector shadow p-3 mb-5 bg-white rounded" id="specific">
                             <!-- <option class="selector">2</option>  ESTO SE LLENA CON JS -->
 
                         </select>
-                        <div class="card stats">
+                        <div class="card-stats shadow p-3 mb-5 bg-white rounded">
                             <ul class="stats-list"></ul>
                         </div>
                     </div>
                     <div class="col-md-7">
-                        <div id="rankPie">
+                        <div id="rankPie" class="shadow bg-white rounded">
 
                         </div>
                     </div>
-                <div class="row">
+                </div>
+                <div class="row lolliChart">
                     <div id="lolliChart">
 
                     </div>
@@ -88,7 +90,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-        <script src="./static/js/money.js"></script>  
+        <script src="{{ url_for('static', filename='js/money.js') }}"></script>  
     </body>
 
 </html>

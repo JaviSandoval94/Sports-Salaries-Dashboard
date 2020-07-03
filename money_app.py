@@ -5,7 +5,8 @@ from sqlalchemy import create_engine
 
 from password import password
 
-engine = create_engine(f'postgres://rwbdompjejjwby:c2e61aca98786bb3402c23494beb1902d523ef00dc2011cb46381334bb93146a@ec2-34-224-229-81.compute-1.amazonaws.com:5432/d1i0ak4t8u1rei')
+engine = create_engine(f'postgresql+psycopg2://postgres:{password}@localhost:5432/sportSalay_db')
+# engine = create_engine(f'postgres://rwbdompjejjwby:c2e61aca98786bb3402c23494beb1902d523ef00dc2011cb46381334bb93146a@ec2-34-224-229-81.compute-1.amazonaws.com:5432/d1i0ak4t8u1rei')
 
 app = Flask(__name__)
 CORS(app, support_credentials=True)
@@ -87,10 +88,16 @@ def graphData(money):
     }
     
     return jsonify(dictData)
-     
+
 @app.route("/")
 @cross_origin(supports_credentials=True)
 def index():
+
+    return render_template("index.html")
+
+@app.route("/api/sports")
+@cross_origin(supports_credentials=True)
+def sports():
     conn = engine.connect()
     money = pd.read_sql("SELECT * FROM sports_data;", conn)
     data = graphData(money)

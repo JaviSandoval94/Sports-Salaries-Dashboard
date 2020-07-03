@@ -4,6 +4,9 @@ var select2 = d3.select("#specific");
 select1.on("change", runMain);
 select2.on("change", runSpecific);
 
+url = "/api/sports"
+var data = d3.json(url);
+
 function radialChart(url){
 
   // set the dimensions and margins of the graph
@@ -76,6 +79,88 @@ function radialChart(url){
 
   });
 }
+
+// function radial(data) {
+//   data.then(datum => {
+//     console.log(datum);
+
+//     var yE = datum.yearEarnings;
+//     var sE = datum.yearSport;
+//     var nE = datum.yearNation
+
+//     var years = [];
+//     var yEarnings = [];
+//     var sports = [];
+//     var nations = [];
+//     var sEarnings = [];
+//     var nEarnings = [];
+
+//     // YEARS
+
+//     Object.entries(yE).forEach(([key, value]) => {
+//       years.push(key);
+//     });
+//     var yearDict = Object.keys(yE).map(function(key) {
+//       return yE[key];
+//     })
+
+//     Object.keys(yearDict).map(function(key) {
+//       yearKey = yearDict[key];
+//       Object.keys(yearKey).map(function(key) {
+//         yEarnings.push(yearKey[key])
+//       });
+//     })
+//     // console.log(years);
+//     // console.log(yEarnings);
+
+//     // SPORTS
+
+//     Object.values(sE).map(function(key) {
+//       // console.log(key);
+//       // Object.keys(key).map(function(key) {
+//       //   if (!sports.includes(key)) {
+//       //     sports.push(key);
+//       //   }
+//       // });
+//       Object.entries(key).forEach(([key, value]) => {
+//         console.log(key);
+//         console.log(value);
+//         array = [];
+//         if(value) {
+//           array.push(key)
+//         }
+
+//       })
+
+//       var earningsTrue = Object.values(key).map(function(values) {
+//         return(values)
+//       });
+
+//       sEarnings.push(earningsTrue);
+//     });
+
+//     // console.log(sports);
+//     // console.log(sEarnings);
+
+//     Object.values(nE).map(function(key) {
+//       // console.log(key);
+//       Object.keys(key).map(function(key) {
+//         if (!nations.includes(key)) {
+//           nations.push(key);
+//         }
+//       });
+
+//       var earningsTrue = Object.values(key).map(function(values) {
+//         return(values)
+//       });
+
+//       nEarnings.push(earningsTrue);
+//     });
+
+//     // console.log(nations);
+//     // console.log(nEarnings);
+//   })
+// }
 
 
 function nationalitiesPie (url){
@@ -213,7 +298,8 @@ function lollipop(data){
   var svg = d3.select("#lolliChart")
     .append("svg")
     .attr("width", svgWidth)
-    .attr("height", svgHeight);
+    .attr("height", svgHeight)
+    .classed("lolliChart", "true");
 
   var lolli = svg.append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
@@ -277,7 +363,7 @@ function lollipop(data){
     .attr("stroke", "black")
 
   var toolTip = d3.tip()
-    .attr("class", "tip")
+    .attr("class", "d3-tip")
     .offset([80, -60])
     .html(function(data) {
       // console.log(data);
@@ -318,7 +404,7 @@ function rankingPie(rank){
     var layout = {
       title: `${s2} Ranking Distribution`,
       paper_bgcolor: "white",
-      showlegend: false
+      // showlegend: false
     }
 
     Plotly.newPlot('rankPie', data, layout);    
@@ -360,7 +446,7 @@ function fillCard(earnings, ranks, athletes, all) {
     return result
   });
   // console.log(oRank);
-  
+  // sport o nation Global E, sort descending call index
   
   card.append("li").text(`Total Athletes: ${athletes}`);
   card.append("li").text(`Overall Rank: ${athletes}`)
@@ -381,9 +467,6 @@ function fillSpecific(options) {
     })
   }
 }
-
-url = "http://localhost:5000/"
-var data = d3.json(url);
 
 function runSpecific() {
   data.then(sample => {
@@ -448,4 +531,12 @@ radialChart(url);
 nationalitiesPie(url);
 sportPie(url);
 atletheHighest(url);
+
+// function init() {
+
+//   radial(data);
+
+//   // select1.property("value", "Sport");
+// }
+// init();
 d3.select(window).on("resize", runSpecific);
