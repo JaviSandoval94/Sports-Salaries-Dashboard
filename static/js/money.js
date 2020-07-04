@@ -134,6 +134,7 @@ function sportPie(url){
       earnings.push(value["Earnings (Millions of US$)"]);
     });
 
+
     var maxSports = earnings.indexOf(Math.max.apply(Math, earnings));
     var highestSport = sports[maxSports];
     var highestSportsText = `Highest paid sport: ${highestSport}`;
