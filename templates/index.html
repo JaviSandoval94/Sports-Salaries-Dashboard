@@ -8,83 +8,112 @@
         <title>Top-paid</title>
         <script src="https://d3js.org/d3.v4.js"></script>
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/lux/bootstrap.min.css" integrity="sha384-smnSwzHqW1zKbeuSMsAM/fMQpkk7HY11LuHiwT8snL/W2QBoZtVCT4H5x1CEcJCs" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/money-style.css') }}">
     </head>
 
     <body>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Forbes top paid athletes 1990-2019</a>
+        </nav>
+
 <!-------------------------------------------------------------------------------- HOME ----------------------------------------------------------------------------------------->
         <div id="home">
             <div class="row text-center">
-                <!-- <img src="imagen guardada en carpeta images" alt="Tiger_Woods" width="500" height="700"> -->
-                <div class="title">Forbes top paid athletes 1990-2019</div>
+                <img src="{{ url_for('static', filename='img/Tiger_Woods.jpg') }}" alt="Tiger_Woods" width="100%" height="100%" style= "padding-bottom: 20px;"> 
             </div>
         </div> 
 
 <!------------------------------------------------------------------------------- RADIAL ----------------------------------------------------------------------------------------->        
-        <div id="radial">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card general">
-                            <div class="card-body">
-                                <h5>GENERAL STATISTICS</h5>
-                                <ul class="highest-paid">
-
-                                </ul>
+        <br>
+        <div class="container">
+            <h1>
+                General Statistics
+            </h1>
+            <hr>
+            <div id="radial">
+                <div class="container-fluid shadow bg-white rounded">
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- <div class="card general p-3 mb-5 bg-white rounded"> -->
+                            <!-- <div class="card no-border"> -->
+                                <!-- <div class="card-body"> -->
+                                    <!-- <h5>GENERAL STATISTICS</h5> -->
+                                    <ul class="highest-paid">
+    
+                                    </ul>
+                                <!-- </div> -->
+    
+                            <!-- </div> -->
+                        </div>
+                        <div class="col-md-12">
+                            <h4>Income distribution by year</h4>
+                            <div id="my_sunburst" class="container bg-white rounded">
+    
                             </div>
-
                         </div>
-                        <div id="nationality-pie">
-
-                        </div>
-                        <div id="sport-pie">
-
-                        </div>
-
                     </div>
-                    <div class="col-md-8">
-                        <div id="my_sunburst">
 
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Earnings (MUSD) by Sport</h4>
+                            <div id="nationality-pie" class="bg-white rounded">
+    
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Earnings (MUSD) by Country</h4>
+                            <div id="sport-pie" class="bg-white rounded">
+    
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        
 <!-------------------------------------------------------------------------------- LOLLIPOP ----------------------------------------------------------------------------------------->        
-        <div id="lollipop">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-5">
-                        <select class="selector shadow p-3 mb-5 bg-white rounded" id ="sportNation">
-                            <option selected>Select a category</option>
-                            <option value="sport">Sport</option>
-                            <option value="nation">Nationality</option>
-                        </select><br>
-                        <select class="selector shadow p-3 mb-5 bg-white rounded" id="specific">
-                            <!-- <option class="selector">2</option>  ESTO SE LLENA CON JS -->
-
-                        </select>
-                        <div class="card-stats shadow p-3 mb-5 bg-white rounded">
-                            <ul class="stats-list"></ul>
+        <div class="container">
+            <br>
+            <h1>
+                Stats by country and sport
+            </h1>
+            <hr>   
+            <div id="lollipop">
+                <div class="container-fluid shadow bg-white rounded">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <select class="selector  p-3 mb-5 bg-white rounded" id ="sportNation">
+                                <option selected>Select a category</option>
+                                <option value="sport">Sport</option>
+                                <option value="nation">Nationality</option>
+                            </select><br>
+                            <select class="selector  p-3 mb-5 bg-white rounded" id="specific">
+                                <!-- <option class="selector">2</option>  ESTO SE LLENA CON JS -->
+    
+                            </select>
+                            <div class="card-stats  p-3 mb-5 bg-white rounded">
+                                <ul class="stats-list"></ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-7">
-                        <div id="rankPie" class="shadow bg-white rounded">
-
+                        <div class="col-md-7">
+                            <div id="rankPie" class=" bg-white rounded">
+    
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row lolliChart">
-                    <div id="lolliChart">
-
                     </div>
                 </div>
             </div>
+        </div> 
+        <div class="row lolliChart">
+            <div id="lolliChart">
+
+            </div>
         </div>
-
-
         <!--Jquery-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>

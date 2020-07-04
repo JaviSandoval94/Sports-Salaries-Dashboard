@@ -60,9 +60,6 @@ function radialChart(url){
       };
     });
 
-    console.log(labels);
-    console.log(parents);
-    console.log(values);
     var data = [{
       "type": "sunburst",
       "labels": labels,
@@ -74,7 +71,7 @@ function radialChart(url){
     }];
     
     var layout = {
-      "margin": {"l": 0, "r": 0, "b": 0, "t": 0},
+      "margin": {"l": 0, "r": 0, "b": 0, "t": 0}
     };
     
     
@@ -83,89 +80,6 @@ function radialChart(url){
     myPlot = document.getElementById("my_sunburst");
   });
 }
-
-// function radial(data) {
-//   data.then(datum => {
-//     console.log(datum);
-
-//     var yE = datum.yearEarnings;
-//     var sE = datum.yearSport;
-//     var nE = datum.yearNation
-
-//     var years = [];
-//     var yEarnings = [];
-//     var sports = [];
-//     var nations = [];
-//     var sEarnings = [];
-//     var nEarnings = [];
-
-//     // YEARS
-
-//     Object.entries(yE).forEach(([key, value]) => {
-//       years.push(key);
-//     });
-//     var yearDict = Object.keys(yE).map(function(key) {
-//       return yE[key];
-//     })
-
-//     Object.keys(yearDict).map(function(key) {
-//       yearKey = yearDict[key];
-//       Object.keys(yearKey).map(function(key) {
-//         yEarnings.push(yearKey[key])
-//       });
-//     })
-//     // console.log(years);
-//     // console.log(yEarnings);
-
-//     // SPORTS
-
-//     Object.values(sE).map(function(key) {
-//       // console.log(key);
-//       // Object.keys(key).map(function(key) {
-//       //   if (!sports.includes(key)) {
-//       //     sports.push(key);
-//       //   }
-//       // });
-//       Object.entries(key).forEach(([key, value]) => {
-//         console.log(key);
-//         console.log(value);
-//         array = [];
-//         if(value) {
-//           array.push(key)
-//         }
-
-//       })
-
-//       var earningsTrue = Object.values(key).map(function(values) {
-//         return(values)
-//       });
-
-//       sEarnings.push(earningsTrue);
-//     });
-
-//     // console.log(sports);
-//     // console.log(sEarnings);
-
-//     Object.values(nE).map(function(key) {
-//       // console.log(key);
-//       Object.keys(key).map(function(key) {
-//         if (!nations.includes(key)) {
-//           nations.push(key);
-//         }
-//       });
-
-//       var earningsTrue = Object.values(key).map(function(values) {
-//         return(values)
-//       });
-
-//       nEarnings.push(earningsTrue);
-//     });
-
-//     // console.log(nations);
-//     // console.log(nEarnings);
-//   })
-// }
-
 
 function nationalitiesPie (url){
   // % of ernings for each country
@@ -196,7 +110,6 @@ function nationalitiesPie (url){
     };
     
     var layout = {
-      title: "Earnings (MUSD) by Country",
       autosize: true,
       showlegend: false
     };
@@ -236,7 +149,6 @@ function sportPie(url){
     };
     
     var layout = {
-      title: "Earnings (MUSD) by Sport",
       autosize: true,
       showlegend: false  
     };
@@ -262,9 +174,10 @@ function atletheHighest(){
 
     var maxAthlete = earnings.indexOf(Math.max.apply(Math, earnings));
     var highestAthlete = athletes[maxAthlete];
-    var highestAthleteText = `Highest paid atlete: ${highestAthlete}`;
-    var liAthlete = d3.select(".highest-paid").append("li").text(highestAthleteText);
-    
+    var highestAthleteText = `Highest paid athtlete: ${highestAthlete}`;
+    var liAthlete = d3.select(".highest-paid")
+      .append("li")
+      .text(highestAthleteText);    
   });
 }
 
@@ -407,7 +320,7 @@ function rankingPie(rank){
 
     var layout = {
       title: `${s2} Ranking Distribution`,
-      paper_bgcolor: "white",
+      paper_bgcolor: "white"
       // showlegend: false
     }
 
@@ -536,11 +449,4 @@ nationalitiesPie(url);
 sportPie(url);
 atletheHighest(url);
 
-// function init() {
-
-//   radial(data);
-
-//   // select1.property("value", "Sport");
-// }
-// init();
 d3.select(window).on("resize", runSpecific);

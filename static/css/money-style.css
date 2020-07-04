@@ -1,18 +1,3 @@
-.home{
-    position: relative;
-    text-align: center;
-    color: white;
-    font-size: x-large;
-}
-
-#rankPie {
-    box-shadow: 20px 20px grey;
-}
-
-/* REVISAR CON SALVADOR */
-.lolliChart {
-    box-shadow: 20px 20px grey;
-}
 
 .d3-tip {
     padding: 6px;
