@@ -38,3 +38,6 @@ An additional interactive visualization allows the user to select between the Na
 The user's selection also affects the final lollipop chart, which showcases the total earnings of the selected country or sport by year. The height and size of the bubbles in this final chart is proportional to the amount of earnings the country or sport had in any given year.
 
 ![lollipop-chart](https://github.com/JaviSandoval94/Sports-Salaries-Dashboard/blob/master/static/img/visualizations/lollipop-chart.PNG)
+
+## Final remarks
+This project shows the utility of interactive data visualizations to represent and make sense out of multidimensional data. Our dashboard can be further improved by implementing alternative visualizations to better showcase categorical data, since the data categories can make it difficult to read the graphs in the traditional pie charts. Any additional comment on the functionality and visualizations will also be appreciated!
