@@ -23,10 +23,18 @@ This repository contains all the files to deploy our dashboard online, incluidng
 ## Visualizations
 The earnings data was first visualized in yearly categories using a sunburst chart, which the user can interact with to identify the highest-paying sport in each year. This visualization is helpful to visualize two dimensions in a visual without much visual clutter. This chart revealed that out of the analyzed data, the highest paid year for the sports industry was 2018.
 
-Unsing the sunburst functionality of the previously described chart, the user can quickly identify the highest paid sport in any given year. For instance, the highest paying sports in 2018 were boxing and soccer.
+![year-sunburst](https://github.com/JaviSandoval94/Sports-Salaries-Dashboard/blob/master/static/img/visualizations/sunburst-years.PNG)
+
+Unsing the sunburst functionality of the previously described chart, the user can quickly identify the highest paid sport in any given year. For instance, the highest paying sports in 2018 were boxing and soccer
+
+![2018-sunburst](https://github.com/JaviSandoval94/Sports-Salaries-Dashboard/blob/master/static/img/visualizations/sunburst-2018.PNG)
 
 Two simple data pies were also generated to extract general data, showing that the country with a highest paying sports industry is the USA, which accounts for 65.1% of the toal earnings in the data set. The highest paying sport from 1990 to 2019 was basketball, which accounts for 24.9% of the total earnings in the data set.
 
 An additional interactive visualization allows the user to select between the Nationality or Sport categories to get specific stats upon selection. This allows for the user to see the total athletes, overall country/sport ranking, best rank, best earnings year and total earnings of the selection.
 
+![stats-country-and-sport](https://github.com/JaviSandoval94/Sports-Salaries-Dashboard/blob/master/static/img/visualizations/stats-country-and-sport.PNG)
+
 The user's selection also affects the final lollipop chart, which showcases the total earnings of the selected country or sport by year. The height and size of the bubbles in this final chart is proportional to the amount of earnings the country or sport had in any given year.
+
+![lollipop-chart](https://github.com/JaviSandoval94/Sports-Salaries-Dashboard/blob/master/static/img/visualizations/lollipop-chart.PNG)
