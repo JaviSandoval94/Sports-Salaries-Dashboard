@@ -1,4 +1,4 @@
-# Fobes Top Paid Athletes 1990 - 2019
+# Forbes Top Paid Athletes 1990 - 2019
 ![tiger-woods](https://github.com/JaviSandoval94/Proyecto-2-Sports-Salaries/blob/master/static/img/Tiger_Woods.jpg)
 
 ## Background
@@ -6,7 +6,7 @@ In this project, we will try to answer questions related to the salary of player
 
 ## Key questions
 * Which is the highest paying sport?
-* Which country has the most top 10 paid athletes?
+* Which country has the most top 10 paid athletes overtime?
 * Is there a relationship between a player’s nationality and his salary?
 * Has the salary of sports players increased overtime since 1990?
 
@@ -18,18 +18,18 @@ URL: https://www.kaggle.com/parulpandey/forbes-highest-paid-athletes-19902019
 The complete data set was donwloaded in `.csv` format and saved in a single-table PostgreSQL database containing all the data fields. The database was accessed using a SQLAlchemy engine in the `money_app.py` file, which contains the Flask script to run the backend server and generate the corresponding visualizations in the HTML template.
 
 ## Code description
-This repository contains all the files to deploy our dashboard online, incluidng `requirements.txt` and `Procfile`. Our Flask server is contained in the `money_app.py` file and is connected to the final deployed PostgreSQL database in Heroku. The `static` folder contains all the files necessary to deploy the visualizations in the `index.html` template, including the `money.js` file, which contains the script to work with the data an generate the final plots.
+This repository contains all the files to deploy our dashboard online, incluidng `requirements.txt` and `Procfile`. Our Flask server is contained in the `money_app.py` file and is connected to the final deployed PostgreSQL database in Heroku. The `static` folder contains all the files necessary to deploy the visualizations in the `index.html` template, including the `money.js` file, which contains the script to work with the data and generate the final plots.
 
 ## Visualizations
-The earnings data was first visualized in yearly categories using a sunburst chart, which the user can interact with to identify the highest-paying sport in each year. This visualization is helpful to visualize two dimensions in a visual without much visual clutter. This chart revealed that out of the analyzed data, the highest paid year for the sports industry was 2018.
+The earnings data was first visualized in yearly categories using a sunburst chart, which the user can interact with to identify the highest-paying sport in each year. This interactive plot is helpful to visualize two dimensions without much clutter. This chart revealed that out of the analyzed data, the highest paid year for the sports industry was 2018.
 
 ![year-sunburst](https://github.com/JaviSandoval94/Sports-Salaries-Dashboard/blob/master/static/img/visualizations/sunburst-years.PNG)
 
-Unsing the sunburst functionality of the previously described chart, the user can quickly identify the highest paid sport in any given year. For instance, the highest paying sports in 2018 were boxing and soccer
+Using the sunburst functionality of the previously described chart, the user can quickly identify the highest paid sport in any given year. For instance, the highest paying sports in 2018 were boxing and soccer.
 
 ![2018-sunburst](https://github.com/JaviSandoval94/Sports-Salaries-Dashboard/blob/master/static/img/visualizations/sunburst-2018.PNG)
 
-Two simple data pies were also generated to extract general data, showing that the country with a highest paying sports industry is the USA, which accounts for 65.1% of the toal earnings in the data set. The highest paying sport from 1990 to 2019 was basketball, which accounts for 24.9% of the total earnings in the data set.
+Two simple data pies were also generated to extract general data over the complete analyzed time frame, showing that the country with a highest paying sports industry is the USA, which accounts for 65.1% of the toal earnings in the data set. The highest paying sport from 1990 to 2019 was basketball, which accounts for 24.9% of the total earnings in the data set.
 
 An additional interactive visualization allows the user to select between the Nationality or Sport categories to get specific stats upon selection. This allows for the user to see the total athletes, overall country/sport ranking, best rank, best earnings year and total earnings of the selection.
 
